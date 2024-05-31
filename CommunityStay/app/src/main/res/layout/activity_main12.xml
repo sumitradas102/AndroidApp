@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity2"
+    android:background="#ADD8E6">
+
+
+
+    <ImageView
+        android:id="@+id/namepic"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/signupdp" />
+
+    <ImageView
+        android:id="@+id/comlogo"
+        android:layout_width="270dp"
+        android:layout_height="129dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="610dp"
+        android:src="@drawable/comlogo" />
+
+    <TextView
+        android:id="@+id/infolist"
+        android:layout_width="400dp"
+        android:layout_height="70dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        android:text="Information"
+        android:textColor="#000000"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="400dp"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="250dp"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        android:text="SAMANTHA"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/namedp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="250dp"
+        android:src="@drawable/name" />
+
+    <TextView
+        android:id="@+id/desig"
+        android:layout_width="400dp"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="320dp"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        android:text="Manager"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+
+
+    <ImageView
+        android:id="@+id/desdp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="320dp"
+        android:src="@drawable/designation" />
+    <TextView
+        android:id="@+id/Phn"
+        android:layout_width="400dp"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="390dp"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        android:text="01714813815"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/b1"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="390dp"
+        android:background="#00FFFFFF"
+
+        />
+
+    <ImageView
+        android:id="@+id/txt"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="184dp"
+        android:layout_marginTop="550dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/chat1" />
+
+
+    <ImageView
+        android:id="@+id/calldp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="390dp"
+        android:src="@drawable/call" />
+
+    <Button
+        android:id="@+id/b3"
+        android:layout_width="148dp"
+        android:layout_height="68dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="550dp"
+        android:layout_marginEnd="10dp"
+        android:background="#00FFFFFF"
+
+        />
+
+    <Button
+        android:id="@+id/b2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="450dp"
+        android:background="#00FFFFFF"
+
+        />
+
+    <TextView
+        android:id="@+id/mail"
+        android:layout_width="400dp"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="460dp"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        android:text="samanthasazia@gmail.com"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/maildp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="460dp"
+        android:src="@drawable/mail" />
+
+
+</RelativeLayout>

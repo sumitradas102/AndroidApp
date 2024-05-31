@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".complainactivity"
+    android:background="#ADD8E6">
+
+    <ScrollView
+        android:layout_gravity="center"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/complainedittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:hint="Write your complains"/>
+
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="304dp"
+                android:layout_height="60dp"
+                android:layout_below="@id/complainedittext"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="49dp"
+                android:height="10dp"
+                android:gravity="center"
+                android:text="Submit complains"
+                android:textColor="@color/black" />
+
+
+        </RelativeLayout>
+
+
+
+
+    </ScrollView>
+
+</LinearLayout>

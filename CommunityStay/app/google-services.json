@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "847424139812",
+    "project_id": "community-stay",
+    "storage_bucket": "community-stay.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:847424139812:android:1f33a562256885a47c1eb1",
+        "android_client_info": {
+          "package_name": "com.example.communitystay"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxZn_JdayGoOSOVDsDzx86jMZRLj72Je4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
