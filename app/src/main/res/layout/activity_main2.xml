@@ -12,15 +12,17 @@
 
     <Button
         android:id="@+id/complain"
-        android:layout_width="254dp"
-        android:layout_height="116dp"
+        android:layout_width="258dp"
+        android:layout_height="115dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="82dp"
-        android:layout_marginBottom="150dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="167dp"
         android:background="@drawable/rounded_button"
         android:text="Say whats in yout mind"
-        android:textSize="30sp"/>
+        android:textSize="30sp" />
 
     <TextView
         android:id="@+id/infolist"
@@ -33,7 +35,7 @@
         android:layout_marginBottom="10dp"
         android:background="#FFFFFF"
         android:gravity="center"
-        android:text="      CommunityStay"
+        android:text="            CommunityStay"
         android:textColor="#000000"
         android:textSize="35sp"
         android:textStyle="bold" />
@@ -59,18 +61,19 @@
 
     <Button
         android:id="@+id/Assigntask1"
-        android:layout_width="262dp"
-        android:layout_height="169dp"
+        android:layout_width="wrap_content"
+        android:layout_height="158dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="53dp"
         android:layout_marginTop="200dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginBottom="293dp"
+        android:layout_marginEnd="53dp"
+        android:layout_marginBottom="344dp"
         android:background="@drawable/rounded_button"
         android:text="Lets  Communicate"
-        android:textSize="30sp"
 
+        android:textSize="30sp"
         android:textStyle="bold" />
 
 
