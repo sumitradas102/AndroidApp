@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "242993784552",
+    "project_id": "comstay-fb978",
+    "storage_bucket": "comstay-fb978.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:242993784552:android:86351a617eea3175370b5d",
+        "android_client_info": {
+          "package_name": "com.example.communitystay"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgKS-up3uM-JBQx-6g7VrOCw81KNIhuX4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
