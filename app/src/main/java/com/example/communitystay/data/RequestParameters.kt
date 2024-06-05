@@ -1,4 +1,4 @@
-package com.example.communitystay
+package com.example.communitystay.data
 
 data class RequestParameters(
     val appId: String,

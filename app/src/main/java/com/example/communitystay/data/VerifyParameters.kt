@@ -1,4 +1,5 @@
-package com.example.communitystay
+package com.example.communitystay.data
+
 import android.adservices.appsetid.AppSetId
 
 data class VerifyParameters(

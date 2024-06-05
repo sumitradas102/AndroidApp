@@ -1,23 +1,29 @@
 package com.example.communitystay
 
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
 object ServiceBuilder {
-    private const val URL = "http://45.90.123.6:3000/"
+    private const val BASE_URL = "http://45.90.123.6:3000/"
+
+    private val logger = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
 
     private val okHttp = OkHttpClient.Builder()
+        .addInterceptor(logger)
+        .build()
 
-    private val builder = Retrofit.Builder().baseUrl(URL)
+    private val retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
-        .client(okHttp.build())
+        .client(okHttp)
+        .build()
 
-    private val retrofit = builder.build();
-
-    fun <T> buildService(serviceType: Class<T>): T {
-        return retrofit.create(serviceType)
+    fun <T> buildService(service: Class<T>): T {
+        return retrofit.create(service)
     }
 }
 

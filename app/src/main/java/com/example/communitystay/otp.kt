@@ -6,13 +6,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.communitystay.MyApiService
-import com.example.communitystay.ServiceBuilder
-import com.example.communitystay.ApiResponse
-import com.example.communitystay.RequestParameters
+
+import com.example.communitystay.data.ApiResponse
+import com.example.communitystay.data.RequestParameters
+import com.example.communitystay.data.OtpVerifyRespone
+import com.example.communitystay.data.VerifyParameters
 import com.google.firebase.auth.FirebaseAuth
-import android.widget.ArrayAdapter
-import com.example.communitystay.databinding.ActivitySignUpBinding
+import com.example.communitystay.databinding.ActivityOtpBinding
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import retrofit2.Call
@@ -21,6 +21,7 @@ import retrofit2.Response
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 import java.util.Date
+
 class otp : AppCompatActivity() {
 
     private lateinit var otpEditText: EditText
@@ -35,6 +36,13 @@ class otp : AppCompatActivity() {
 
     private lateinit var databaseReference: DatabaseReference
     private lateinit var auth: FirebaseAuth
+
+    val verifyParameters = VerifyParameters(
+        appId = "APP_118923",
+        password = "d400d4dbf74b8fcd0a24eb37cd18db93",
+        referenceNo = "",
+        otp = ""
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,24 +71,21 @@ class otp : AppCompatActivity() {
         }
     }
 
-    private fun verifyOtp(otp: String) {
-        val verifyParameters = VerifyParameters(
-            appId = "APP_118923",
-            password = "d400d4dbf74b8fcd0a24eb37cd18db93",
-            referenceNo = referenceNo,
-            otp = otp
-        )
-
+    fun verifyOtp(otp: String) {
+        verifyParameters.otp = otp
+        Log.d("MyActivity", "${verifyParameters}")
         val destinationService = ServiceBuilder.buildService(MyApiService::class.java)
         val requestCall = destinationService.verifyOtp(verifyParameters)
+
 
         requestCall.enqueue(object : Callback<OtpVerifyRespone> {
             override fun onResponse(call: Call<OtpVerifyRespone>, response: Response<OtpVerifyRespone>) {
                 if (response.isSuccessful) {
                     val apiResponse = response.body()
-                    if (apiResponse?.status == "SUCCESS") {
+                    if (apiResponse?.statusCode == "SUCCESS") {
                         Toast.makeText(this@otp, "OTP verified successfully", Toast.LENGTH_SHORT).show()
                         saveInfo(name, email, pass, number, status, FirebaseAuth.getInstance().uid ?: "")
+                        navigateToMainActivity2()
                     } else {
                         // If OTP verification fails, delete the UID from the database
                         deleteUidFromDatabase()
@@ -244,3 +249,5 @@ class otp : AppCompatActivity() {
         finish()
     }
 }
+
+

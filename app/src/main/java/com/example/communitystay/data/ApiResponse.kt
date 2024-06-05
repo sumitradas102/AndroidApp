@@ -1,4 +1,4 @@
-package com.example.communitystay
+package com.example.communitystay.data
 
 data class ApiResponse(
     val statusCode: String,
@@ -6,3 +6,4 @@ data class ApiResponse(
     val referenceNo: String,
     val version: String
 )
+

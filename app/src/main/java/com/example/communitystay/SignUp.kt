@@ -1,26 +1,19 @@
 package com.example.communitystay
+import com.example.communitystay.data.ApiResponse
+import com.example.communitystay.data.RequestParameters
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.communitystay.MyApiService
-import com.example.communitystay.ServiceBuilder
-import com.example.communitystay.ApiResponse
-import com.example.communitystay.RequestParameters
-import com.google.firebase.auth.FirebaseAuth
-import android.widget.ArrayAdapter
 import com.example.communitystay.databinding.ActivitySignUpBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import com.google.firebase.database.*
-import java.text.SimpleDateFormat
-import java.util.Date
 
 class SignUp : AppCompatActivity() {
     private lateinit var name: String
@@ -35,6 +28,7 @@ class SignUp : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_sign_up)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -59,7 +53,7 @@ class SignUp : AppCompatActivity() {
             if (name.isBlank() || email.isBlank() || pass.isBlank() || number.isBlank() || status.isBlank()) {
                 Toast.makeText(this, "Fill all the information", Toast.LENGTH_SHORT).show()
             } else {
-                // Send OTP request
+                Log.d("SignUp", "Attempting to submit OTP request")
                 submit()
             }
         }
@@ -82,29 +76,35 @@ class SignUp : AppCompatActivity() {
 
         requestCall.enqueue(object : Callback<ApiResponse> {
             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+                Log.d("SignUp", "Entered onResponse")
                 if (response.isSuccessful) {
                     val apiResponse = response.body()
                     if (apiResponse != null) {
-                        // Handle successful response
                         Log.d("SignUp", "OTP sent successfully: $apiResponse")
-                        // Proceed to OTP verification page
-                        proceedToOtpVerification()
+                        proceedToOtpVerification(apiResponse.referenceNo)
+                    } else {
+                        Log.e("SignUp", "Response body is null")
                     }
                 } else {
-                    // Handle unsuccessful response
                     Log.e("SignUp", "Failed to send OTP: ${response.errorBody()?.string()}")
                 }
             }
 
             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                // Handle failure
                 Log.e("SignUp", "Network error: ${t.message}")
             }
         })
     }
 
-    private fun proceedToOtpVerification() {
-        // Proceed to OTP verification activity
-        startActivity(Intent(this, otp::class.java))
+    private fun proceedToOtpVerification(referenceNo: String) {
+        val intent = Intent(this, otp::class.java).apply {
+            putExtra("REFERENCE_NO", referenceNo)
+            putExtra("NAME", name)
+            putExtra("EMAIL", email)
+            putExtra("NUMBER", number)
+            putExtra("PASS", pass)
+            putExtra("STATUS", status)
+        }
+        startActivity(intent)
     }
 }
