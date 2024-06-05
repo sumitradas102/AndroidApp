@@ -28,7 +28,6 @@ class SignUp : AppCompatActivity() {
     private lateinit var number: String
     private lateinit var pass: String
     private lateinit var status: String
-    private val PICK_IMAGE_REQUEST = 2
 
     private lateinit var databaseReference: DatabaseReference
     private lateinit var auth: FirebaseAuth
@@ -60,29 +59,52 @@ class SignUp : AppCompatActivity() {
             if (name.isBlank() || email.isBlank() || pass.isBlank() || number.isBlank() || status.isBlank()) {
                 Toast.makeText(this, "Fill all the information", Toast.LENGTH_SHORT).show()
             } else {
-                // Send OTP
-                sendOTP()
+                // Send OTP request
+                submit()
             }
         }
 
         binding.goLogin.setOnClickListener {
-            startActivity(Intent(this,Login::class.java))
+            startActivity(Intent(this, Login::class.java))
             finish()
         }
     }
 
-    private fun sendOTP() {
-        // TODO: Integrate OTP service to send OTP
+    private fun submit() {
+        val requestParameters = RequestParameters(
+            appId = "APP_118923",
+            password = "d400d4dbf74b8fcd0a24eb37cd18db93",
+            mobile = number
+        )
 
-        // For now, directly navigate to OTP verification page
-        val intent = Intent(this,otp::class.java)
-        intent.putExtra("NAME", name)
-        intent.putExtra("EMAIL", email)
-        intent.putExtra("NUMBER", number)
-        intent.putExtra("PASS", pass)
-        intent.putExtra("STATUS", status)
-        startActivity(intent)
+        val destinationService = ServiceBuilder.buildService(MyApiService::class.java)
+        val requestCall = destinationService.requestOtp(requestParameters)
+
+        requestCall.enqueue(object : Callback<ApiResponse> {
+            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+                if (response.isSuccessful) {
+                    val apiResponse = response.body()
+                    if (apiResponse != null) {
+                        // Handle successful response
+                        Log.d("SignUp", "OTP sent successfully: $apiResponse")
+                        // Proceed to OTP verification page
+                        proceedToOtpVerification()
+                    }
+                } else {
+                    // Handle unsuccessful response
+                    Log.e("SignUp", "Failed to send OTP: ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                // Handle failure
+                Log.e("SignUp", "Network error: ${t.message}")
+            }
+        })
     }
 
-    // Other functions remain unchanged
+    private fun proceedToOtpVerification() {
+        // Proceed to OTP verification activity
+        startActivity(Intent(this, otp::class.java))
+    }
 }

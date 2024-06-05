@@ -66,7 +66,7 @@ class otp : AppCompatActivity() {
     private fun verifyOtp(otp: String) {
         val verifyParameters = VerifyParameters(
             appId = "APP_118923",
-            password = "1b98469d4299b36d0128054acc23d5eb",
+            password = "d400d4dbf74b8fcd0a24eb37cd18db93",
             referenceNo = referenceNo,
             otp = otp
         )
