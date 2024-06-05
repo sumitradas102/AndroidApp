@@ -1,42 +1,49 @@
 package com.example.communitystay
-
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ArrayAdapter
+import android.util.Log
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.communitystay.databinding.ActivitySignUpBinding
+import com.example.communitystay.MyApiService
+import com.example.communitystay.ServiceBuilder
+import com.example.communitystay.ApiResponse
+import com.example.communitystay.RequestParameters
 import com.google.firebase.auth.FirebaseAuth
+import android.widget.ArrayAdapter
+import com.example.communitystay.databinding.ActivitySignUpBinding
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.Headers
-import retrofit2.http.POST
-import retrofit2.Response
 import retrofit2.Call
 import retrofit2.Callback
+import retrofit2.Response
 import com.google.firebase.database.*
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class SignUp : AppCompatActivity() {
+    private lateinit var name: String
+    private lateinit var email: String
+    private lateinit var number: String
+    private lateinit var pass: String
+    private lateinit var status: String
+    private val PICK_IMAGE_REQUEST = 2
 
-    private lateinit var binding: ActivitySignUpBinding
-    private lateinit var auth: FirebaseAuth
     private lateinit var databaseReference: DatabaseReference
-    private var referenceNo: String = ""
+    private lateinit var auth: FirebaseAuth
+    private lateinit var binding: ActivitySignUpBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        auth = FirebaseAuth.getInstance()
         databaseReference = FirebaseDatabase.getInstance().reference
+        auth = FirebaseAuth.getInstance()
 
-        val roles = arrayOf("Manager", "Staff", "Resident")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, roles)
+        val lst: Array<String> = arrayOf("Manager", "Staff", "Resident")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, lst)
         binding.spinner.setAdapter(adapter)
 
         binding.imgbtn.setOnClickListener {
@@ -44,67 +51,38 @@ class SignUp : AppCompatActivity() {
         }
 
         binding.buttonSignUp.setOnClickListener {
-            val name = binding.name.text.toString().trim()
-            val email = binding.email.text.toString().trim()
-            val pass = binding.password.text.toString().trim()
-            val number = binding.phoneNumber.text.toString().trim()
-            val status = binding.spinner.text.toString()
+            name = binding.name.text.toString().trim()
+            email = binding.email.text.toString().trim()
+            pass = binding.password.text.toString().trim()
+            number = binding.phoneNumber.text.toString().trim()
+            status = binding.spinner.text.toString()
 
             if (name.isBlank() || email.isBlank() || pass.isBlank() || number.isBlank() || status.isBlank()) {
                 Toast.makeText(this, "Fill all the information", Toast.LENGTH_SHORT).show()
             } else {
-                auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val uid = auth.currentUser!!.uid
-                        Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show()
-                        sendOtp(number, uid)
-                    } else {
-                        val errorMessage = task.exception?.message.toString()
-                        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
-                    }
-                }
+                // Send OTP
+                sendOTP()
             }
         }
 
         binding.goLogin.setOnClickListener {
-            startActivity(Intent(this, Login::class.java))
+            startActivity(Intent(this,Login::class.java))
             finish()
         }
     }
 
-    private fun sendOtp(phoneNumber: String, uid: String) {
-        val requestParameters = RequestParameters(
-            appId = "APP_119062",
-            password = "1b98469d4299b36d0128054acc23d5eb",
-            mobile = phoneNumber
-        )
+    private fun sendOTP() {
+        // TODO: Integrate OTP service to send OTP
 
-        val destinationService = ServiceBuilder.buildService(MyApiService::class.java)
-        val requestCall = destinationService.requestOtp(requestParameters)
-
-        requestCall.enqueue(object:Callback<ApiResponse> {
-            override fun onResponse(call:Call<ApiResponse>, response:Response<ApiResponse>) {
-                if (response.isSuccessful) {
-                    val apiResponse = response.body()
-                    referenceNo = apiResponse?.referenceNo ?: ""
-                    Toast.makeText(this@SignUp, "OTP sent successfully", Toast.LENGTH_SHORT).show()
-                    navigateToOtpActivity(uid)
-                } else {
-                    Toast.makeText(this@SignUp, "Failed to send OTP", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                Toast.makeText(this@SignUp, "Network error: ${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
-
-    private fun navigateToOtpActivity(uid: String) {
+        // For now, directly navigate to OTP verification page
         val intent = Intent(this,otp::class.java)
-        intent.putExtra("REFERENCE_NO", referenceNo)
-        intent.putExtra("UID", uid)
+        intent.putExtra("NAME", name)
+        intent.putExtra("EMAIL", email)
+        intent.putExtra("NUMBER", number)
+        intent.putExtra("PASS", pass)
+        intent.putExtra("STATUS", status)
         startActivity(intent)
-        finish()
     }
+
+    // Other functions remain unchanged
 }
